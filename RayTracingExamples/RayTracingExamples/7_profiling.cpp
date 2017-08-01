@@ -127,21 +127,6 @@ float GetUniformRandom()
 	return (float)rand() / RAND_MAX;
 }
 
-Vector3 RandomInUnitDisk()
-{
-	Vector3 p;
-
-	do
-	{
-		float r1 = GetUniformRandom();
-		float r2 = GetUniformRandom();
-
-		p = 2.0f * Vector3(r1, r2, 0.0f) - Vector3(1, 1, 0);
-	} while (dot(p, p) >= 1.0f);
-
-	return p;
-}
-
 class Camera
 {
 public:
