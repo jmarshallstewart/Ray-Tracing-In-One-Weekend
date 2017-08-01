@@ -127,7 +127,7 @@ Vector3 color(const Ray& r, Hitable* world, int depth)
 	}
 }
 
-void trace(int threadIndex)
+void trace()
 {
 	do
 	{
@@ -169,7 +169,7 @@ void trace(int threadIndex)
 
 int main()
 {
-	SeedRng(568567);
+	SeedRng();
 	world = GenerateRandomScene();
 
 	time_point<steady_clock> start = steady_clock::now();
@@ -182,13 +182,16 @@ int main()
 	unsigned int nextThreadIndex = 0;
 	while (nextThreadIndex < numThreads && nextThreadIndex < ny)
 	{
-		workers.emplace_back(thread(trace, nextThreadIndex++));
+		workers.emplace_back(thread(trace));
+		++nextThreadIndex;
 	}
 
 	numThreads = (int)workers.size();
-	cout << numThreads << " workers launched to complete " << ny << " jobs." << endl;
-
-	unsigned int i = 1;
+	{
+		lock_guard<mutex> lock(coutMutex);
+		cout << numThreads << " workers launched to complete " << ny << " jobs." << endl;
+	}
+	
 	for (auto& worker : workers)
 	{
 		worker.join();
