@@ -290,7 +290,6 @@ int main()
 	numThreads = (int)workers.size();
 	cout << numThreads << " workers launched to complete " << height << " jobs." << endl;
 
-	unsigned int i = 1;
 	for (auto& worker : workers)
 	{
 		worker.join();
