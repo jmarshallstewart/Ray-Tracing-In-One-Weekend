@@ -20,10 +20,8 @@ using namespace chrono;
 
 static mutex coutMutex;
 
-//const int nx = 640;
-//const int ny = 480;
-const int nx = 2;
-const int ny = 2;
+const int nx = 640;
+const int ny = 480;
 const int ns = 100;
 const int maxDepth = 50;
 const int numThreadsScalar = 2;
