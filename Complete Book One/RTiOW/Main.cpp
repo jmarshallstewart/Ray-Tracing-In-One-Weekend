@@ -38,7 +38,7 @@ Camera camera(lookFrom, lookAt, up, 90.0f, float(nx) / float(ny), aperture, dist
 Dielectric dielectricMaterial(1.5f);
 
 // buffer is an array of pixel data in rgb format, i.e., length = width * height * 3 ints.
-void WritePpmFile(int* buffer, int width, int height, const char* fileName)
+void WritePpmFile(int* buffer, int width, int height, const string fileName)
 {
 	ofstream outFile;
 	outFile.open(fileName);
@@ -200,6 +200,12 @@ int main()
 	duration<double> elapsedSeconds = steady_clock::now() - start;
 	cout << "Elapsed time: " << elapsedSeconds.count() << " seconds" << endl;
 
-	WritePpmFile(pixelBuffer, nx, ny, "render.ppm");
+	string fileName;
+	//char fileNameAndPath[50];
+	cout << "Finished!! The output will be saved in Screenshots folder." << endl;
+	cout << "Please enter the filename: ";cin >> fileName;
+	string s = string("../../Screenshots/") + string(fileName) + string(".ppm");
+	//"../../Screenshots/" fileName ".ppm"
+	WritePpmFile(pixelBuffer, nx, ny, s);
 	delete[] pixelBuffer;
 }
