@@ -7,6 +7,7 @@
 #include <thread>		// split up image into rows and trace in threads.
 #include <vector>		// used for storing worker threads.
 #include <mutex>		// lock for some cout stuff that occurs at the end of a thread just before join().
+#include <string>
 #include "Random.h"
 #include "Sphere.h"
 #include "HitableList.h"
@@ -200,12 +201,11 @@ int main()
 	duration<double> elapsedSeconds = steady_clock::now() - start;
 	cout << "Elapsed time: " << elapsedSeconds.count() << " seconds" << endl;
 
-	string fileName;
-	//char fileNameAndPath[50];
-	cout << "Finished!! The output will be saved in Screenshots folder." << endl;
-	cout << "Please enter the filename: ";cin >> fileName;
-	string s = string("../../Screenshots/") + string(fileName) + string(".ppm");
-	//"../../Screenshots/" fileName ".ppm"
+	string fileName = "";
+	cout << "Finished. The output will be saved in Screenshots folder." << endl;
+	cout << "Please enter the filename: ";
+	getline(cin, fileName);
+	string s = string("../../Screenshots/") + string(fileName);
 	WritePpmFile(pixelBuffer, nx, ny, s);
 	delete[] pixelBuffer;
 }
